@@ -53,14 +53,16 @@ public class UserService implements CommunityConstant {
         }
         return user;
     }
-
+    // 返回值可以有多个内容，用Map
     public Map<String, Object> register(User user) {
         Map<String, Object> map = new HashMap<>();
 
         // 空值处理
+        // user对象是空，抛异常
         if (user == null) {
             throw new IllegalArgumentException("参数不能为空!");
         }
+        // 如果username是空的。.isBlank（）判断为空
         if (StringUtils.isBlank(user.getUsername())) {
             map.put("usernameMsg", "账号不能为空!");
             return map;
@@ -88,7 +90,7 @@ public class UserService implements CommunityConstant {
             return map;
         }
 
-        // 注册用户
+        // 注册用户，即把用户信息存到库。存之前对数据做以下处理
         user.setSalt(CommunityUtil.generateUUID().substring(0, 5));
         user.setPassword(CommunityUtil.md5(user.getPassword() + user.getSalt()));
         user.setType(0);

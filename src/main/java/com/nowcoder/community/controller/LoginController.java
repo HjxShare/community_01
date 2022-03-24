@@ -106,7 +106,7 @@ public class LoginController implements CommunityConstant {
         String redisKey = RedisKeyUtil.getKaptchaKey(kaptchaOwner);
         redisTemplate.opsForValue().set(redisKey, text, 60, TimeUnit.SECONDS);
 
-        // 将突图片输出给浏览器
+        // 将图片输出给浏览器
         response.setContentType("image/png");
         try {
             OutputStream os = response.getOutputStream();

@@ -19,6 +19,7 @@ public class MailClient {
     @Autowired
     private JavaMailSender mailSender;
 
+    //发件人
     @Value("${spring.mail.username}")
     private String from;
 
@@ -27,16 +28,16 @@ public class MailClient {
     }
 
     public void sendMail(String to, String subject, String content){
-            try {
-                MimeMessage message = mailSender.createMimeMessage();
-                MimeMessageHelper helper = new MimeMessageHelper(message);
-                helper.setFrom(from);
-                helper.setTo(to);
-                helper.setSubject(subject);
-                helper.setText(content, true);
-                mailSender.send(helper.getMimeMessage());
-            } catch (MessagingException e) {
-                logger.error("发送邮件失败：" + e.getMessage());
-            }
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message);
+            helper.setFrom(from);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(content, true);//加了true，表示允许支持html文本
+            mailSender.send(helper.getMimeMessage());
+        } catch (MessagingException e) {
+            logger.error("发送邮件失败：" + e.getMessage());
+        }
     }
 }

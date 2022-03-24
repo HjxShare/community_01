@@ -13,6 +13,7 @@ import java.util.Properties;
 public class KaptchaConfig {
 
     @Bean
+    // 用于生成验证码
     public Producer kaptchaProducer(){
         Properties properties = new Properties();
         properties.setProperty("kaptcha.image.width", "100");
@@ -28,5 +29,4 @@ public class KaptchaConfig {
         kaptcha.setConfig(config);
         return kaptcha;
     }
-
 }
